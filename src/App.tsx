@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import './App.scss';
+import { useAppSelector } from './app/hooks';
+import CalendarHeader from './components/CalendarHeader';
+import Month from './components/Month';
+import { getMonth } from './util';
 
 function App() {
+  const [currentMonth, setCurrentMonth] = useState(getMonth());
+
+  const { monthIndex } = useAppSelector((state) => state.calendar);
+
+  useEffect(() => {
+    setCurrentMonth(getMonth(monthIndex));
+    console.log(monthIndex);
+  }, [monthIndex]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mx-auto h-screen flex flex-col py-5 font-roboto">
+      <CalendarHeader />
+      <Month month={currentMonth} />
     </div>
   );
 }

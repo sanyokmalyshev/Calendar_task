@@ -3,7 +3,7 @@
 # Demo link
 [Link](https://sanyokmalyshev.github.io/Calendar_task/)
 
-#Techologies used in project:
+# Techologies used in project:
 * HTML5
 * Tailwind Css
 * Material UI

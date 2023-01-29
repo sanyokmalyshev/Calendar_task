@@ -7,6 +7,11 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 
+store.subscribe(( )=> {
+  localStorage.setItem('savedEvents', JSON.stringify(store.getState().events.savedEvents));
+  localStorage.setItem('currentDate', JSON.stringify(store.getState().calendar.selectedDate));
+})
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

@@ -8,7 +8,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { getMonthAndYear, getMonthsFrom1970 } from '../util';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { setMonthIndex} from '../features/calendarSlice';
+import { setMonthIndex, setSelectedDate} from '../features/calendarSlice';
 import Button from '@mui/material/Button';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
@@ -17,11 +17,12 @@ import { TextField } from '@mui/material';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { setShowEventModal} from '../features/eventSlice';
 
 const AddToolTip = withStyles({
   tooltip: {
     color: "white",
-    backgroundColor: "green",
+    backgroundColor: "#1976d2",
   }
 })(Tooltip);
 
@@ -34,15 +35,19 @@ const theme = createTheme({
 });
 
 export default function CalendarHeader() {
-  const { monthIndex } = useAppSelector((state) => state.calendar);
   const dispatch = useAppDispatch();
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  const { monthIndex, selectedDate } = useAppSelector((state) => state.calendar);
 
-  const [value, setValue] = useState<Date | undefined>(new Date(getMonthAndYear(monthIndex)));
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [value, setValue] = useState<Date | undefined>(
+    dayjs(selectedDate).toDate()
+  );
 
   useEffect(() => {
-    setValue(new Date(getMonthAndYear(monthIndex)));
-  }, [monthIndex]);
+    const value = new Date(getMonthAndYear(monthIndex));
+    setValue(value);
+    dispatch(setSelectedDate(dayjs(value).toDate().toString()));
+  }, [monthIndex, dispatch]);
 
 
   function handleReset() {
@@ -68,9 +73,10 @@ export default function CalendarHeader() {
       <AddToolTip 
         TransitionComponent={Zoom} 
         title="Add new idea" 
+        enterDelay={1000}
       >
-        <IconButton>
-          <AddCircleRoundedIcon color="success" fontSize="large" />
+        <IconButton onClick={() => dispatch(setShowEventModal(true))}>
+          <AddCircleRoundedIcon color="primary" fontSize="large" />
         </IconButton>
       </AddToolTip>
       <div className='flex items-center'>
@@ -92,7 +98,9 @@ export default function CalendarHeader() {
               
             />
           </IconButton>
-          <p className="font-bold text-gray-500 w-32 text-center">{getMonthAndYear(monthIndex)}</p>
+          <p className="font-bold text-gray-500 w-32 text-center">
+            {getMonthAndYear(monthIndex)}
+          </p>
           <IconButton
             onClick={() => dispatch(setMonthIndex(monthIndex + 1))}
           >

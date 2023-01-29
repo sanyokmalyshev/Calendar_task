@@ -3,12 +3,12 @@ const date = new Date();
 export function getMonth(month: number = date.getMonth()) {
   const year = date.getFullYear();
   
-  const dayInTheWeekNumber = new Date(date.getFullYear(), month, 1).getDay();
+  const dayInTheWeekNumber = new Date(year, month, 1).getDay();
   
   let currentMonthCount = dayInTheWeekNumber !== 0 
     ? 1 - dayInTheWeekNumber : -6;
   
-  const daysInMonth = new Date(date.getFullYear(), month + 1, 0).getDate();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
   
   let countWeeks = Math.ceil((daysInMonth - currentMonthCount) / 7);
 

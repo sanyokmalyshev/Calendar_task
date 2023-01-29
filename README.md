@@ -1,6 +1,6 @@
 # Calendar 
 
-Link[https://sanyokmalyshev.github.io/Calendar_task/]
+[Link](https://sanyokmalyshev.github.io/Calendar_task/)
 
 #Techologies used in project:
 * HTML5

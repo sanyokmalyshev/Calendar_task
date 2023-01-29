@@ -11,5 +11,4 @@
 * TypeScript
 * LocaleStorage
 * Redux-Toolkit
-* Craco
 * DayJs

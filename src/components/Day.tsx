@@ -26,7 +26,7 @@ export default function Day({ day }: Props) {
 
   const getCurrentDayClass = () => {
     return formatDate(new Date()) === formatDate(day) 
-      ? 'bg-blue text-white hover:bg-blue' : '';
+      ? 'bg-blue text-white hover:bg-blue' : 'hover:bg-gray-100';
   }
 
   const inactiveDaysClass = () => {
@@ -53,7 +53,7 @@ export default function Day({ day }: Props) {
 
   return (
     <div 
-      className={`border-b border-r border-gray-200 flex flex-col  p-2 gap-1 cursor-pointer hover:bg-gray-100 ${getCurrentDayClass()} ${inactiveDaysClass()}`}
+      className={`border-b border-r border-gray-200 flex flex-col  p-2 gap-1 cursor-pointer ${getCurrentDayClass()} ${inactiveDaysClass()}`}
       onClick={() => selectDate()}
     >
       <div className='flex justify-between w-full'>

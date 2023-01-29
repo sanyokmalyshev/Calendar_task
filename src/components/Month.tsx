@@ -17,4 +17,4 @@ export default function Month({ month }: Props) {
       ))}
     </div>
   )
-}
+} 
